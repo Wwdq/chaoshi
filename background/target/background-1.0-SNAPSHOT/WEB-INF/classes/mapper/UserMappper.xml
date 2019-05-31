@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="dao.UserMapper">
+    <!---->
+    <select id="selectUser" resultType="model.UserAdmin" parameterType="model.UserAdmin" >
+        select * from useradmin
+        where username= #{username}and password =#{password};
+
+    </select>
+    <select id="selectAll" resultType="model.UserAdmin"  >
+        select * from useradmin order by  creattime desc limit #{start},#{size};
+
+    </select>
+    <insert id="insertUserRole" parameterType="map">
+        insert into roleuser(uid,rid) values
+        <foreach collection="unAssign" item="roleId" separator=",">
+            (#{userId},#{roleId})
+        </foreach>
+    </insert>
+    <delete id="deleteUserRole" parameterType="map">
+        delete from roleuser  where uid=#{userId} and rid in
+        <foreach collection="assign"  item="roleId" open="(" close=")" separator=",">
+             #{roleId}
+        </foreach>
+    </delete>
+</mapper>

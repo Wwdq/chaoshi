@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="dao.OrderMapper">
+    <select id="insertItem" parameterType="map">
+        insert into orderitem(orderid,goodid,count,name,price,src) values
+        <foreach collection="list" item="now" separator=",">
+            (#{orderid},#{now.id},#{now.count},#{now.name},#{now.price},#{now.src})
+
+  </foreach>
+</select>
+
+
+
+</mapper>
